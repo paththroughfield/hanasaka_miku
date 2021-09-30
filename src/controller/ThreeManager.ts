@@ -18,8 +18,6 @@ export class ThreeManager
     private _cameraMng! :CameraManager;
     private _objMng!    :ObjManager;
 
-    private mikumodel:any;
-
     constructor ()
     {
         var w = document.documentElement.clientWidth;
@@ -37,6 +35,7 @@ export class ThreeManager
         renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(w, h);
         renderer.shadowMap.enabled = true;
+        renderer.setClearColor('#00ffff',0.3)
         container.appendChild(renderer.domElement);
 
         this._renderer = renderer;
@@ -103,7 +102,7 @@ export class ThreeManager
             this._cameraMng = new CameraManager(this._camera);
             this._objMng  = new ObjManager(this._scene,data);
 
-            this.mikumodel = this._mikuMng.loading();
+            this._mikuMng.loading();
         }
         
     }

@@ -22,30 +22,22 @@ export class PlayerManager
     {
         this._presentData = Ref.pdata = new PresentData();
         
-        if (Ref.isDebug)
-        {
-
-        }
-        else
-        {
-            var player = this._player = new Player({
-                app: {token: "JTMqa8eKXEi3QWoV"},
-                mediaElement: <HTMLInputElement>document.querySelector("#media") 
-            });
-            
-            player.addListener({
-                onAppReady  : (app) => this._onAppReady(app),
-                onVideoReady: (v) => this._onVideoReady(v),
-                onPlay : () => this._onPlay(),
-                onPause: () => this._onPause(),
-                onStop : () => this._onStop(),
-                onMediaSeek : (pos) => this._onMediaSeek(pos),
-                onTimeUpdate: (pos) => this._onTimeUpdate(pos),
-                //onThrottledTimeUpdate: (pos) => this._onThrottledTimeUpdate(pos),
-                //onAppParameterUpdate: (name, value) => this._onAppParameterUpdate(name, value),
-                onAppMediaChange: (url) => this._onAppMediaChange(url),
-            });
-        }
+        var player = this._player = new Player({
+            app: {token: "JTMqa8eKXEi3QWoV"},
+            mediaElement: <HTMLInputElement>document.querySelector("#media") 
+        });
+        
+        player.addListener({
+            onAppReady  : (app) => this._onAppReady(app),
+            onVideoReady: (v) => this._onVideoReady(v),
+            onPlay : () => this._onPlay(),
+            onPause: () => this._onPause(),
+            onStop : () => this._onStop(),
+            onMediaSeek : (pos) => this._onMediaSeek(pos),
+            onTimeUpdate: (pos) => this._onTimeUpdate(pos),
+            onAppMediaChange: (url) => this._onAppMediaChange(url),
+        });
+    
 
         this._update();
 
@@ -64,8 +56,6 @@ export class PlayerManager
     {
         if (isNaN(now)) return;
 
-        //this._presentData = Ref.pdata;
-        //console.log("pdata:",this._presentData);
         this._presentData.timeupdate(now);
         Ref.three.update(this._presentData);
     }
@@ -85,10 +75,19 @@ export class PlayerManager
         }
         if (! app.songUrl)
         {
-            this._player.createFromSongUrl("https://www.youtube.com/watch?v=-6oxY-quTOA", {
-                altLyricsUrl: "data:text/plain;base64,44G744KT44Go44Gu44Kz44OI44CA44G744KT44Go44Gu44Kt44Oi44OB44Gg44GR44CA5Lyd44GI44KJ44KM44Gf44KJ44GE44GE44Gu44Gr44Gt44CA44Gq44KT44GmCuOBqOOBjeOBqeOBjeOAgOiAg+OBiOOBn+OCiuOBmeOCi+OBkeOBqeOAgOOBneOBhuOBneOBhuOAgOOBhuOBvuOBj+OBr+OBhOOBi+OBquOBhOOBv+OBn+OBhOOBrQoK44Gf44Go44GI44Gw44CA44Gd44GG44CA5oSb5oOz44KI44GP56yR44GG44GC44Gu5a2Q44Gu55yf5Ly844Go44GL44GX44Gf44KK44KC44GZ44KL44GR44GpCuOBn+OBhOOBpuOBhOOAgOOBhuOCj+OBueOBoOOBkeOBp+OAgOOBqeOBhuOBq+OCguOAgOOBk+OBhuOBq+OCguOAgOOBquOCk+OBqOOCguOAgOOBquOCieOBquOBhOOCguOBruOBpwoK44Gd44KM44Gn44KC44CA44G744KJ44CA44Kt44Of44GM56yR44Gj44Gm44KL44CA44G+44KP44KK44Gv44GE44Gk44KC5Yil5LiW55WM44GnCuOBteOBqOOBl+OBn+OBqOOBjeOAgOebruOBqOebruOBjOOBguOBo+OBn+OCieOAgOOCveODr+OCveODr+OBl+OBoeOCg+OBhuOAgOOCreODn+OBruOBm+OBhOOBoOOBi+OCiQoK5oGL44Gu44Ot44Oz44Oq55qE44Gr44CA6KqH5aSn5aaE5oOz44CA6ZuG5Lit56Cy54Gr44GnCuOCreODn+OBruOCs+ODiOODkOOBruOBsuOBqOOBpOOBsuOBqOOBpOOBq+OAgOaSg+OBoeaKnOOBi+OCjOOBn+ODj+ODvOODiOOBrwrjgZ/jgYjjgZrjgIDkuI3lronlrprjgafjgIDjgajjgY3jganjgY3jgIDou6LjgbPjgZ3jgYbjgavjgoLjgarjgovjgZHjgakK44Gd44Gj44Go44CA5pSv44GI44Gm44GP44KM44KL44CA44Gd44GG44GE44GG44Go44GT44KN44GM5aW944GN44Gq44Gu44GVCgoK44GE44Gk44KC44Gu44Kz44OI44CA44GC44KK44G144KM44Gf44Kz44OI44OQ44GV44GI44CA5Ye644Gm44GT44Gq44GP44Gm44CA44Oi44Ok44Oi44Ok44GX44Gf44KK44GtCuOBquOCk+OBpuOBreOAgOaCqeOCk+OBoOOCiuOCguOBmeOCi+OBkeOBqeOAgOOBneOBhuOBneOBhuOAgOetlOOBiOOBr+OBv+OBpOOBi+OCieOBquOBhOOBruOBrQoK44Gf44Go44GI44Gw44CA44Gd44GG44CA5puy44GM44KK6KeS5puy44GM44Gj44Gm44CA5YG254S244Kt44Of44Go5Ye65Lya44Gj44Gf44Go44GN44Gr44GvCuOCouOCv+ODleOCv+OBl+OBpuOBsOOBi+OCiuOBp+OAgOOBqeOBhuOBq+OCguOAgOOBk+OBhuOBq+OCguOAgOOBquOCk+OBqOOCguOAgOOBquOCieOBquOBhOOCguOBruOBpwoK44Gd44KM44Gn44KC44CA44G744KJ44CA44Kt44Of44GM6KaL44Gk44KB44Gm44KL44CA44G+44KP44KK44Gv44GE44Gk44KC5Yil5qyh5YWD44GnCuOBquOBq+OCguOBi+OCguOBjOOAgOOBoeOBo+OBveOBkeOBq+imi+OBiOOCi+OAgOacuuOBruS4iuOBq+etlOOBiOOBr+eEoeOBhOOBi+OCiQoK5oGL44Gu44Kr44Ks44Kv55qE44Gr44CA6I2S5ZSQ54Sh56i944CA57W156m65LqL44Gn44KCCuOCreODn+OBruWCjeOBq+OBhOOBn+OBhOOBruOAgOOCs+ODiOODkOOBquOCk+OBpuOBhOOCieOBquOBhOOBj+OCieOBhOOBqwrjgZ/jgYjjgZrjgIDpmqPjgavjgYTjgabjgIDmjIHjgaHjgaTmjIHjgZ/jgozjgaTjgIDjgoLjgZ/jgozjgYvjgYvjgorjgaTjgacK44Gd44Gj44Go44CA5omL44Go5omL5Y+W44KK5ZCI44GG44CA44Gd44GG44GE44GG5LqM5Lq644Gr44Gq44KK44Gf44GE44Gu44GVCgoK5oGL44Gu44Ot44Oz44Oq55qE44Gr44CA55+b55u+44Gg44KJ44GR44Gu44CA5aSi54mp6Kqe44GnCuOCreODn+OBruWPs+aJi+W3puaJi+OAgOOBpOOBi+OBvuOBiOOBpumbouOBleOBquOBhOOBj+OCieOBhOOBrwrjgZ/jgYjjgZrjgIDnqbrlm57jgorjgafjgIDjgajjgY3jganjgY3jgIDou6LjgbPjgZ3jgYbjgavjgoLjgarjgovjgZHjgakK44Gd44Gj44Go44CA5oqx44GI44Gm44GP44KM44KL44CA44Gd44GG44GE44GG44Go44GT44KN44GM5aW944GN44Gq44Gu44GV"
+            // ラテルネ / その心に灯る色は
+            this._player.createFromSongUrl("http://www.youtube.com/watch?v=bMtYf3R0zhY", {
+                video: {
+                    // 音楽地図訂正履歴: https://songle.jp/songs/2121404/history
+                    beatId: 3953902,
+                    repetitiveSegmentId: 2099660,
+                    // 歌詞タイミング訂正履歴: https://textalive.jp/lyrics/www.youtube.com%2Fwatch%3Fv=bMtYf3R0zhY
+                    lyricId: 52093,
+                    lyricDiffId: 5177
+                }
             });
         }
+
     }
     
     private _onVideoReady (v: IVideo) 
@@ -168,10 +167,7 @@ export class PlayerManager
         //console.log("timeupdate");
         this._animate(position);
     }
-    /*private _onThrottledTimeUpdate (position :number)
-    {
-
-    }*/
+    
     private _onAppMediaChange (url :string)
     {
         this._player.requestMediaSeek(0);

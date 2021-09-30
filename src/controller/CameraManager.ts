@@ -1,8 +1,6 @@
 
 import * as THREE from "three";
 import { PresentData } from "../model/PresentData";
-//import { Util } from "../util/Util";
-//import { Ref } from "../core/Ref";
 import { Vector3 } from "three";
 
 export class CameraManager

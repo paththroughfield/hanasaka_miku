@@ -71,7 +71,7 @@ export class SeatsObject{
                             side: THREE.DoubleSide}    
           ));
   
-        textground.position.y = 0.5;
+        textground.position.y = 0.3;
         textground.rotation.x = -Math.PI / 2;
         
         return textground;

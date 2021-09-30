@@ -11,7 +11,7 @@ class Main
     
     public initialize ()
     {
-        if (! Ref.enabledWarn) console.warn = function(){};
+        //if (! Ref.enabledWarn) console.warn = function(){};
 
         this._three = Ref.three = new ThreeManager();
         this._player = Ref.player = new PlayerManager();

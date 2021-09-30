@@ -3,27 +3,16 @@ import { PresentData } from "../model/PresentData";
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { Ref } from "../core/Ref";
 import { KeyManager } from "./KeyManager";
-import { VideoTexture } from "three";
-
-//import { Util } from "../util/Util";
-//import { SceneManager } from "./SceneManager";
-
 
 export class MikuManager
 {
-    //private mikuvec!: THREE.Vector3;
     private px:number;
     private py:number;
     private pz:number;
     private scale: number;
 
-    private speed:number = 0.005;
+    private speed:number = 0.008;
     private _position:number=0;
-    //private rx:number = 0;
-    //private rz:number = 0;
-
-    //private _stw!:number;
-    //private _sth!:number;
 
     private action: any=[];
     private mixer:any;
@@ -37,7 +26,7 @@ export class MikuManager
         this.px = data.px;
         this.pz = data.pz;
         this.py = 3.0;
-        //this.mikuvec.set(data.px,5.0,data.pz);
+       
         this.scale = 1.0;
         this._scene = scene;
         this._data = data;
@@ -74,12 +63,6 @@ export class MikuManager
               //Animation Actionを生成
               this.action[i] = this.mixer.clipAction(animation) ;
 
-              //ループ設定（1回のみ）
-              //action.setLoop(THREE.LoopOnce);
-
-              //アニメーションの最後のフレームでアニメーションが終了
-              //action.clampWhenFinished = true;
-
               //アニメーションを再生
               this.action[0].play();
 
@@ -109,6 +92,11 @@ export class MikuManager
         this.model.position.x += this.speed * data.delta * vec.x;
         this.model.position.z += this.speed * data.delta * vec.z;
 
+        if(this.model.position.x>450) this.model.position.x = 450;
+        else if(this.model.position.x<-450) this.model.position.x = -450;
+        if(this.model.position.z>450) this.model.position.z = 450;
+        else if(this.model.position.z<-450) this.model.position.z = -450;
+        
         //進行方向
         tmpv.copy(vec);
         tmpv.normalize();
@@ -137,10 +125,4 @@ export class MikuManager
         }
     }
 
-    /*public keyupdate(rx:number,ry:number){
-      
-    }*/
-    /*public animation(){
-      if()
-    }*/
 }
