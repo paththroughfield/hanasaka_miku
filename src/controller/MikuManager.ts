@@ -12,7 +12,7 @@ export class MikuManager
     private scale: number;
 
     private speed:number = 0.008;
-    private _position:number=0;
+    //private _position:number=0;
 
     private action: any=[];
     private mixer:any;
@@ -30,7 +30,7 @@ export class MikuManager
         this.scale = 1.0;
         this._scene = scene;
         this._data = data;
-        this._position = 0;
+        //this._position = 0;
         //this.loading();
     }
 
@@ -43,7 +43,7 @@ export class MikuManager
         url,
         (gltf) =>{
           this.model =  gltf.scene;
-          
+          this.model.castShadow = true;
           const animations = gltf.animations;
           this.model.scale.set(this.scale,this.scale,this.scale);
           this.model.position.set(this.px,this.py,this.pz);
@@ -65,7 +65,6 @@ export class MikuManager
 
               //アニメーションを再生
               this.action[0].play();
-
             }
 
           }
@@ -92,11 +91,11 @@ export class MikuManager
         this.model.position.x += this.speed * data.delta * vec.x;
         this.model.position.z += this.speed * data.delta * vec.z;
 
-        if(this.model.position.x>450) this.model.position.x = 450;
-        else if(this.model.position.x<-450) this.model.position.x = -450;
-        if(this.model.position.z>450) this.model.position.z = 450;
-        else if(this.model.position.z<-450) this.model.position.z = -450;
-        
+        if(this.model.position.x>480) this.model.position.x = 480;
+        else if(this.model.position.x<-480) this.model.position.x = -480;
+        if(this.model.position.z>480) this.model.position.z = 480;
+        else if(this.model.position.z<-480) this.model.position.z = -480;
+
         //進行方向
         tmpv.copy(vec);
         tmpv.normalize();
@@ -111,7 +110,7 @@ export class MikuManager
         console.log("pupdatez:",this.model.position.z);
 
         data.mikudata(this.model.position.x,this.model.position.z);
-        this._position = data.now;
+        //this._position = data.now;
         
         if(!this._keyMng.mflag){
           this.action[0].stop();

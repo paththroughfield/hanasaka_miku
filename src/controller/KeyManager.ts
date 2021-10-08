@@ -37,9 +37,7 @@ export class KeyManager
 
         var mx = 0;
         var my = 0;
-        //this._stw = Ref.stw / 2;
-        //this._sth = Ref.sth / 2;
-
+       
         if (e.touches)
         {
             mx = e.touches[0].clientX;
@@ -51,12 +49,10 @@ export class KeyManager
             my = e.clientY;
         }
 
-        //kai = Math.sqrt(Math.pow(nx,2) + Math.pow(ny,2));
         this.rx = (mx / Ref.stw) * 2 - 1;
         this.ry = (my / Ref.sth) * 2 - 1;
-        console.log("rx:",this.rx);
-        console.log("ry:",this.ry);
-        //this._data.keyupdate(rx,ry);
+        //console.log("rx:",this.rx);
+        //console.log("ry:",this.ry);
     }
 
     public _touchend (e: any)

@@ -10,7 +10,7 @@ export class CameraManager
     constructor (camera :THREE.PerspectiveCamera)
     {
         this._camera = camera;
-        this._camera.up.set(0,1,0);
+        this._camera.up.set(0,20,0);
     }
 
     public update (data :PresentData)

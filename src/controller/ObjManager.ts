@@ -10,7 +10,7 @@ export class ObjManager{
     private omote:number = -Math.PI / 2;
 
     private space:number = 2;
-    private subtime:number=0;
+    private subtime:number = 0;
 
     constructor (scene :THREE.Scene,data: PresentData)
     {
@@ -75,7 +75,7 @@ export class ObjManager{
                             for (var r = 0; r < rn; r ++)
                             {
                                 isOk = true;
-                                for (var j = 0; j < i; j ++)
+                                for (var j = 0; j < this._lyrics.length; j ++)
                                 {
                                     var tl = this._lyrics[j];
                                     

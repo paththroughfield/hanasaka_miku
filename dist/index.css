@@ -49,15 +49,19 @@ a {
 #controls #bt_pause {
     display: none;
 }
-#license {
-    font-size: calc(0.4rem + 0.5vmin);
-    width: calc(100vw - 100px - 16vmin);
+
+#controls.able{ 
+    pointer-events: auto;
 }
+
 
 .dg.ac {
     user-select: none;
 }
 
+.disabled{
+    display: none;
+}
 
 #view {
     width: 100%;
@@ -77,7 +81,6 @@ a {
     right: 10px;
     bottom: 10px;
     z-index: 2;
-    width: calc(80px + 16vmin);
 }
 
 #media > div > div{

@@ -16,5 +16,6 @@ export class Ref
 
     public static Mikumodel :any;
     public static pdata :PresentData;
+    static Ref: any;
     
 }

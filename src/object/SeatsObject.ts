@@ -1,12 +1,11 @@
 import * as THREE from "three";
 
 let col=[
-    '#ff0000',
-    '#ff8010',
-    '#0000ff',
-    '#00ffff',
-    '#ff00ff',
-    '#ffff00',
+    '#ff2222',//red
+    '#2222ff',
+    '#22ffff',
+    '#ff22ff',
+    '#ffff22',
     '#ffffff',
     "#000000"
 ];
@@ -15,7 +14,7 @@ export class SeatsObject{
 
     private makecolor()
     {
-        var random =  Math.floor( Math.random() * 7);
+        var random =  Math.floor( Math.random() * 6);
         return random;
     }
 
@@ -54,7 +53,7 @@ export class SeatsObject{
         var imagetexture = new THREE.CanvasTexture(canvas);
         imagetexture.needsUpdate = true; 
 
-        var lylic = this.makeMesh(imagetexture,7);
+        var lylic = this.makeMesh(imagetexture,6);
         
         return lylic;
     }

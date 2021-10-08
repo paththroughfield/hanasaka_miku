@@ -35,7 +35,7 @@ export class ThreeManager
         renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(w, h);
         renderer.shadowMap.enabled = true;
-        renderer.setClearColor('#00ffff',0.3)
+        renderer.setClearColor('#00ffff',0.7)
         container.appendChild(renderer.domElement);
 
         this._renderer = renderer;
@@ -43,19 +43,23 @@ export class ThreeManager
         this._camera   = camera;
 
         // Light
-        var ambientLight = new THREE.AmbientLight(0xffffff);
+        var ambientLight = new THREE.AmbientLight(0xbbbbbb);
         scene.add( ambientLight );
         
-        /*var directionalLight = new THREE.DirectionalLight(0xffffff, 1.0);
-        directionalLight.position.set(0, 100, 100);
-        scene.add(directionalLight);*/
+        var directionalLight = new THREE.DirectionalLight(0xffffff, 3.0);
+        directionalLight.position.set(10, 10, 10);
+        scene.add(directionalLight);
 
-        const spotLight = new THREE.SpotLight(0xffffff, 4, 2000, Math.PI / 5, 0.2, 1.5);
-        spotLight.position.set(0, 600, 600);
-        //spotLight.castShadow = true; // 影を落とす設定
+        /*var directionalLight2 = new THREE.DirectionalLight(0xffffff, 1.3);
+        directionalLight2.position.set(0, 10, 0);
+        scene.add(directionalLight2);*/
+
+        /*const spotLight = new THREE.DirectionalLight(0xffffff);
+        spotLight.position.set(0, 1000, 0);
+        spotLight.castShadow = true; // 影を落とす設定
         spotLight.shadow.mapSize.width = 2048;
         spotLight.shadow.mapSize.height = 2048;
-        scene.add(spotLight);
+        scene.add(spotLight);*/
 
         // 床のテクスチャー
         const texture = new THREE.TextureLoader().load('/src/assets/floor1.png');
@@ -71,6 +75,7 @@ export class ThreeManager
             metalness: 0.6,
             })
         );
+        floor.receiveShadow = true;
         floor.rotation.x = -Math.PI / 2;
         //floor.receiveShadow = true; // 影の設定
         scene.add(floor);
@@ -112,10 +117,11 @@ export class ThreeManager
         //console.log(Ref.pdata.model)
         // Scene
         this._renderer.render(this._scene,this._camera);
+        this._cameraMng.update(data);
         if(!Ref.pdata.model) return;
         this._mikuMng.update(data);
-        this._cameraMng.update(data);
         this._objMng.update(data);
+        console.log(this._scene.children);
     }
 
     public resize ()
@@ -131,5 +137,13 @@ export class ThreeManager
         
         this._renderer.setSize(w, h);
     }
-    
+
+    public flowerRemove()
+    {
+        //ライト、地面、モデルは残す
+        while(this._scene.children[4]){
+            this._scene.remove(this._scene.children[4]);
+        }
+    }
+
 }

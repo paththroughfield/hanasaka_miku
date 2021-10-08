@@ -35,11 +35,12 @@ export class PlayerManager
             onStop : () => this._onStop(),
             onMediaSeek : (pos) => this._onMediaSeek(pos),
             onTimeUpdate: (pos) => this._onTimeUpdate(pos),
+            onTimerReady : () => this._onTimerReady(),
             onAppMediaChange: (url) => this._onAppMediaChange(url),
         });
     
 
-        this._update();
+        //this._update();
 
         return this;
     }
@@ -68,9 +69,6 @@ export class PlayerManager
         {
             // 再生コントロール表示
             document.getElementById("footer")!.style.display = "block";
-            document.getElementById("bt_play")!.addEventListener("click", () => this._player.requestPlay());
-            document.getElementById("bt_pause")!.addEventListener("click", () => this._player.requestPause());
-            document.getElementById("bt_rewind")!.addEventListener("click", () => this._player.requestMediaSeek(0));
 
         }
         if (! app.songUrl)
@@ -114,7 +112,14 @@ export class PlayerManager
         this._ready();
     }
 
-    private _update ()
+    private _onTimerReady()
+    {
+        document.getElementById("bt_play")!.addEventListener("click", () => this._player.requestPlay());
+        document.getElementById("bt_pause")!.addEventListener("click", () => this._player.requestPause());
+        document.getElementById("bt_rewind")!.addEventListener("click", () => this.rewind());
+    }
+
+    public _update ()
     {
         if (this._player && this._player.isPlaying && 0 < this._updateTime)
         {
@@ -158,13 +163,14 @@ export class PlayerManager
     private _onMediaSeek (position :number)
     {
         console.log("seek", position);
+        
     }
     private _onTimeUpdate (position :number)
     {
         this._position   = position;
         this._updateTime = Date.now();
 
-        //console.log("timeupdate");
+        console.log("timeupdate");
         this._animate(position);
     }
     
@@ -179,4 +185,9 @@ export class PlayerManager
         this._listeners.push(listener);
     }
     
+    private rewind()
+    {
+        Ref.three.flowerRemove();
+        this._player.requestMediaSeek(0);
+    }
 }
