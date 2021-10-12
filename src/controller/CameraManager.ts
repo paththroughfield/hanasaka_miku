@@ -6,10 +6,12 @@ import { Vector3 } from "three";
 export class CameraManager
 {
     private _camera :THREE.PerspectiveCamera;
+    private _light  :THREE.DirectionalLight;
 
-    constructor (camera :THREE.PerspectiveCamera)
+    constructor (camera :THREE.PerspectiveCamera,light : THREE.DirectionalLight)
     {
         this._camera = camera;
+        this._light = light;
         this._camera.up.set(0,20,0);
     }
 
@@ -20,7 +22,8 @@ export class CameraManager
         var camera = this._camera;
     
         camera.position.set(data.px, 20, data.pz+20);
-        
+        this._light.position.set(data.px+20,40,data.pz+20);
+        this._light.target.position.set(data.px , 0,  data.pz);
         camera.lookAt(new Vector3(data.px,0,data.pz));
         
     }

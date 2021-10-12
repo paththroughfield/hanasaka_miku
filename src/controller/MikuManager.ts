@@ -43,7 +43,7 @@ export class MikuManager
         url,
         (gltf) =>{
           this.model =  gltf.scene;
-          this.model.castShadow = true;
+          //this.model.castShadow = true;
           const animations = gltf.animations;
           this.model.scale.set(this.scale,this.scale,this.scale);
           this.model.position.set(this.px,this.py,this.pz);
@@ -68,6 +68,12 @@ export class MikuManager
             }
 
           }
+
+          this.model.traverse((object) => {
+            if ((<THREE.Mesh>object).isMesh) {
+              object.castShadow = true;
+            }
+          });
 
           this._scene.add(this.model);
           this._data.mikumodel(this.model);

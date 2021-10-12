@@ -13,6 +13,7 @@ export class ThreeManager
     private _renderer :THREE.WebGLRenderer;
     private _scene    :THREE.Scene;
     private _camera   :THREE.PerspectiveCamera;
+    private _light    :THREE.DirectionalLight;
     
     private _mikuMng!   :MikuManager;
     private _cameraMng! :CameraManager;
@@ -38,17 +39,20 @@ export class ThreeManager
         renderer.setClearColor('#00ffff',0.7)
         container.appendChild(renderer.domElement);
 
-        this._renderer = renderer;
-        this._scene    = scene;
-        this._camera   = camera;
-
         // Light
         var ambientLight = new THREE.AmbientLight(0xbbbbbb);
         scene.add( ambientLight );
         
-        var directionalLight = new THREE.DirectionalLight(0xffffff, 3.0);
-        directionalLight.position.set(10, 10, 10);
+        var directionalLight = new THREE.DirectionalLight(0xffffff, 2.3);
+        directionalLight.position.set(50, 50, 50);
+        directionalLight.castShadow = true; // 影を落とす設定
+        directionalLight.shadow.camera.right = 12;
+        directionalLight.shadow.camera.left = -12;
+        directionalLight.shadow.camera.top = -12;
+        directionalLight.shadow.camera.bottom = 12;
+        directionalLight.target.position.set( 0, 0, 0 );
         scene.add(directionalLight);
+        scene.add( directionalLight.target );
 
         /*var directionalLight2 = new THREE.DirectionalLight(0xffffff, 1.3);
         directionalLight2.position.set(0, 10, 0);
@@ -95,6 +99,11 @@ export class ThreeManager
         // Light Helper
         // scene.add(new THREE.DirectionalLightHelper(directionalLight, 3, 0xff0000));
 
+        this._renderer = renderer;
+        this._scene    = scene;
+        this._camera   = camera;
+        this._light    = directionalLight;
+
     }
 
     public ready(data:PresentData)
@@ -104,7 +113,7 @@ export class ThreeManager
         {
             this._renderer.render(this._scene,this._camera);
             this._mikuMng = new MikuManager(this._scene,data);
-            this._cameraMng = new CameraManager(this._camera);
+            this._cameraMng = new CameraManager(this._camera,this._light);
             this._objMng  = new ObjManager(this._scene,data);
 
             this._mikuMng.loading();

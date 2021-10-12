@@ -10,7 +10,7 @@ export class ObjManager{
     private omote:number = -Math.PI / 2;
 
     private space:number = 2;
-    private subtime:number = 0;
+    private subtime:number = 200;
 
     constructor (scene :THREE.Scene,data: PresentData)
     {
@@ -123,6 +123,7 @@ export class ObjManager{
         this.fontsize(data,c);
 
         //console.log("addscene:",c._flower);
+        c._flower.receiveShadow = true;
         this._scene.add(c._flower);
         this._scene.add(c._moji);
     }
