@@ -66,7 +66,7 @@ export class ThreeManager
         scene.add(spotLight);*/
 
         // 床のテクスチャー
-        const texture = new THREE.TextureLoader().load('/src/assets/floor1.png');
+        const texture = new THREE.TextureLoader().load('/docs/assets/floor1.png');
         texture.wrapS = texture.wrapT = THREE.RepeatWrapping; // リピート可能に
         texture.repeat.set(100, 100); // 10x10マスに設定
         texture.magFilter = THREE.NearestFilter; // アンチエイリアスを外す

@@ -21,7 +21,7 @@ export class SeatsObject{
     public makeFlower(){
         var mcolor = this.makecolor();
         const loader = new THREE.TextureLoader();
-        const picture = loader.load("/src/assets/flower1a.png");
+        const picture = loader.load("/docs/assets/flower1a.png");
 
         var flower = this.makeMesh(picture,mcolor);
         return flower;
