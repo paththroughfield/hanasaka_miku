@@ -2,9 +2,9 @@ import * as THREE from "three";
 import { Ref } from "../core/Ref";
 //import { MathExt } from "../util/MathExt";
 import { PresentData } from "../model/PresentData";
+import { ObjManager } from "./ObjManager";
 import { MikuManager } from "./MikuManager";
 import { CameraManager } from "./CameraManager";
-import { ObjManager } from "./ObjManager";
 
 export class ThreeManager
 {
@@ -66,7 +66,8 @@ export class ThreeManager
         scene.add(spotLight);*/
 
         // 床のテクスチャー
-        const texture = new THREE.TextureLoader().load('/docs/assets/floor1.png');
+        const floor_png = require('../asset/floor1.png');
+        const texture = new THREE.TextureLoader().load(floor_png);
         texture.wrapS = texture.wrapT = THREE.RepeatWrapping; // リピート可能に
         texture.repeat.set(100, 100); // 10x10マスに設定
         texture.magFilter = THREE.NearestFilter; // アンチエイリアスを外す

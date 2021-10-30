@@ -36,7 +36,8 @@ export class MikuManager
 
     public loading(){
       const loader = new GLTFLoader();
-      const url = '/docs/assets/miku_miku7_2.glb';
+      const miku_m = require('../asset/miku_miku7_2.glb');
+      const url = miku_m;
       this._keyMng = new KeyManager();
 
       loader.load(

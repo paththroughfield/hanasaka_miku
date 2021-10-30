@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
 
 module.exports = {
     // モード値を production に設定すると最適化された状態で、
@@ -19,8 +20,16 @@ module.exports = {
       //  出力ファイルのディレクトリ名
       path: `${__dirname}/docs`,
       // 出力ファイル名
-      filename: "main.js"
+      filename: "main.js",
+
+      assetModuleFilename: 'images/[hash][ext]',
     },
+
+    devServer: {
+      static: "docs",
+      open: true
+    },
+
     module: {
       rules: [
         {
@@ -30,7 +39,7 @@ module.exports = {
           use: "ts-loader"
         },
         {
-          test: /\.(png|jpg|gif)$/,
+          test: /\.(png|svg|glb)$/,
           type: 'asset/resource'
         },
         {
