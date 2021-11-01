@@ -5,6 +5,7 @@ import './index.css';
 
 class Main
 {
+    
     private _player! :PlayerManager;
     private _three!  :ThreeManager;
 
