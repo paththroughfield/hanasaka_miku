@@ -1,10 +1,12 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
+
 
 module.exports = {
     // モード値を production に設定すると最適化された状態で、
     // development に設定するとソースマップ有効でJSファイルが出力される
-    mode: "development",
+    mode: "production",
   
     // メインとなるJavaScriptファイル（エントリーポイント）
     entry: "./src/index.ts",
@@ -12,7 +14,10 @@ module.exports = {
     plugins: [
       new HtmlWebpackPlugin({
         template: "./src/index.html"
-      })
+      }),
+      new MiniCssExtractPlugin({
+        filename: "./src/index.css",
+      }),
     ],
 
     // ファイルの出力設定
@@ -35,27 +40,44 @@ module.exports = {
         {
           // 拡張子 .ts の場合
           test: /\.ts$/,
+          exclude: /node_modules/,
           // TypeScript をコンパイルする
           use: "ts-loader"
         },
         {
-          test: /\.(png|svg|glb)$/,
-          type: 'asset/resource'
+          test: /\.(svg|png|glb)$/,
+          type: 'asset/resource',
         },
         {
           test: /\.css/,
           use: [
-            "style-loader",
             {
-              loader: "css-loader",
-              options: { url: false }
-            }
+              loader: MiniCssExtractPlugin.loader,
+            },
+            // CSS を CommonJS に変換するローダー
+            'css-loader',
           ]
-        }
+        },
+        {
+          test: /\.html$/i,
+          loader: 'html-loader',
+          options: {
+            // Disables attributes processing
+            sources: {
+              list: [
+                {
+                  tag: 'img',
+                  attribute: 'src',
+                  type: 'src',
+                },
+              ],
+            },
+          },
+        },
       ],
     },
     // import 文で .ts ファイルを解決するため
     resolve: {
-      extensions: [".ts", ".js"]
+      extensions: [".ts", ".js"],
     }
   };

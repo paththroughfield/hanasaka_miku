@@ -1,6 +1,7 @@
 import {ThreeManager} from "./controller/ThreeManager";
 import { PlayerManager } from "./controller/PlayerManager";
 import { Ref } from "./core/Ref";
+import './index.css'; 
 
 class Main
 {
