@@ -6,7 +6,9 @@
 ![画像](/image/image2_1.png)
 
 # demo
+[デモページ](https://paththroughfield.github.io/hanasaka_miku/)
 [デモ動画](https://youtu.be/cHtjkK7RxBs)
+
 
 # 操作方法
 マウスをページ上で動かすことによってモデルを操作できます．  
